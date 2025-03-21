@@ -4,7 +4,7 @@ def menu():
     menu = True
 
     while menu == True:
-        print("\nOptions:\n1) Pick Card\n2) Show remaining cards\n3) Show remaining figures\n4) Reset Deck\n0) Exit App\n")
+        print("---------------------------------------\nOptions:\n1) Pick Card\n2) Show remaining cards\n3) Show remaining figures\n4) Reset Deck\n0) Exit App\n")
 
         try:
             select = int(input("Insert option number: "))
