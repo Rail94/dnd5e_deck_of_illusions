@@ -1,17 +1,18 @@
-from functions import show_deck, pick_card, reset_deck, get_cards
+from main_functions import pick_card, get_cards
+from option_functions import show_deck, reset_deck, restore_card
 
 def menu():
     menu = True
 
     while menu == True:
-        print("---------------------------------------\nOptions:\n1) Pick Card\n2) Show remaining cards\n3) Show remaining figures\n4) Reset Deck\n0) Exit App\n")
+        print("---------------------------------------\nOptions:\n1) Pick Card\n2) Show remaining cards\n3) Show remaining figures\n4) Generate new deck\n5) Restore a card\n0) Exit App\n")
 
         try:
             select = int(input("Insert option number: "))
 
             # 1 PICK A CARD
             if select == 1:
-                pick_card()
+                print(pick_card())
 
             # 2 SHOW NUMBER OF CARDS
             elif select == 2:
@@ -38,11 +39,11 @@ def menu():
 
             # 4 RESET DECK
             elif select == 4:
-                reset_deck()
+                print(reset_deck())
 
             # 5 RESTORE A CARD
             elif select == 5:
-                print("Restore card function")
+                print(restore_card())
 
             # CLOSE APP
             elif select == 0:
@@ -55,7 +56,7 @@ def menu():
         except ValueError as e:
             print("\nInvalid input, please insert a number.\n")
         except Exception as e:
-            print("\nUnexpected error!\n")
+            print("\nSomething went wrong in menù!\n")
 
 # Start App
 menu()
