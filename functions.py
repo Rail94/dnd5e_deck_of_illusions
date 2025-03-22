@@ -3,6 +3,7 @@ import random
 
 folder = "files"
 txt = f"{folder}/deck_list.txt"
+used_cards = f"{folder}/used_cards.txt"
 backup = f"{folder}/backup_list.txt"
 
 def show_deck():
@@ -49,7 +50,7 @@ def reset_deck():
             for row in reader:
                 backup_cards.append(row)
 
-            # Overwrite txt file with backup
+        # Overwrites txt file with backup
         with open(txt, "w", encoding="utf-8") as file:
             # Write headers
             file.write("id,card\n")
@@ -57,13 +58,18 @@ def reset_deck():
             for row in backup_cards:
                 file.write(f"{row['id']},{row['card']}\n")
 
+        # Removes used cards
+        with open(used_cards, "w", encoding="utf-8") as file:
+            # Write headers
+            file.write("id,card\n")
+
         print("\nGenerated new deck!\n")
 
     except FileNotFoundError:
         print("\nFile txt not found!\n")
 
     except Exception as e:
-        print("\nSomething went wrong!\n")
+        print("\nSomething went wrong while resetting the deck!\n")
 
 def pick_card():
     """
@@ -101,11 +107,15 @@ def get_cards():
 
 def get_random_card(remaining_cards):
     """
-    Pick one random remaining card id
+    Pick one random remaining card id and append to used cards file
     """
     if remaining_cards != []:
         try:
             random_card = random.choice(remaining_cards)
+
+            with open(used_cards, "a", encoding="utf-8") as file:
+                file.write(f"{random_card['id']},{random_card['card']}\n")
+
             return random_card
 
         except Exception as e:
@@ -115,7 +125,7 @@ def get_random_card(remaining_cards):
 
 def update_cards(remaining_cards, random_card):
     """
-    Delete picked card from txt file and rewrites it
+    Excludes picked card from txt file and rewrites it without that card
     """
     try:
         updated_cards = []

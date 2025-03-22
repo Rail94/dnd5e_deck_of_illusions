@@ -40,6 +40,10 @@ def menu():
             elif select == 4:
                 reset_deck()
 
+            # 5 RESTORE A CARD
+            elif select == 5:
+                print("Restore card function")
+
             # CLOSE APP
             elif select == 0:
                 print("Exiting...")
@@ -53,4 +57,5 @@ def menu():
         except Exception as e:
             print("\nUnexpected error!\n")
 
+# Start App
 menu()
