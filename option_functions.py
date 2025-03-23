@@ -1,4 +1,5 @@
 import csv
+import random
 from main_functions import get_cards
 
 folder = "files"
@@ -64,6 +65,39 @@ def reset_deck():
 			file.write("id,card\n")
 
 		return "\nGenerated new deck!\n"
+
+	except FileNotFoundError:
+		print("\nFile txt not found!\n")
+	except Exception as e:
+		print("\nSomething went wrong while resetting the deck!\n")
+
+def incomplete_deck():
+	"""
+	Generate a deck with 1/20 - 1 random cards
+	"""
+	try:
+		with open(backup, "r", encoding="utf-8") as file:
+			backup_cards = list(csv.DictReader(file))
+
+			total_cards = len(backup_cards)
+			missing_cards = total_cards - (random.randint(1, 20)) - 1
+
+			deck = random.sample(backup_cards, missing_cards)
+
+			# Overwrites deck_list file with random cards
+			with open(deck_list, "w", encoding="utf-8") as file:
+				# Write headers
+				file.write("id,card\n")
+
+				for row in deck:
+					file.write(f"{row['id']},{row['card']}\n")
+
+			# Removes used cards
+			with open(used_cards, "w", encoding="utf-8") as file:
+				# Write headers
+				file.write("id,card\n")
+
+			return "Generated incomplete deck!"
 
 	except FileNotFoundError:
 		print("\nFile txt not found!\n")

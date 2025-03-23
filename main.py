@@ -1,5 +1,5 @@
 from main_functions import pick_card, get_cards
-from option_functions import show_deck, reset_deck, restore_card
+from option_functions import show_deck, reset_deck, restore_card, incomplete_deck
 
 def menu():
     menu = True
@@ -37,9 +37,26 @@ def menu():
                 else:
                     print("\nNo cards remaining!\n")
 
-            # 4 RESET DECK
+            # 4 NEW DECK
             elif select == 4:
-                print(reset_deck())
+                try:
+                    print("\nOptions:\n1) Generate full deck\n2) Generate incomplete deck\n0) Cancel\n")
+                    select_deck = int(input("Insert option number: "))
+
+                    if select_deck == 1:
+                        print(reset_deck())
+                    elif select_deck == 2:
+                        print(incomplete_deck())
+                    elif select_deck == 0:
+                        print("Canceled")
+                    else:
+                        print("\nNot valid command!\n")
+
+                except ValueError as e:
+                    print("\nInvalid input, you must insert a number!\n")
+                except Exception as e:
+                    print("\nSomething went wrong while getting a card number!\n")
+
 
             # 5 RESTORE A CARD
             elif select == 5:
